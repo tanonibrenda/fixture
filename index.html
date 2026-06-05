@@ -249,76 +249,251 @@
         <!-- Región viva ARIA: Anuncia a los lectores de pantalla cuando cambia la hora -->
         <div id="tz-announcer" class="sr-only" aria-live="polite"></div>
 
-        <!-- GRUPO A -->
-        <div class="group-section">
-            <h3 id="grupo-a-title" class="group-title">Grupo A</h3>
-            <!-- El wrapper tiene tabindex="0" y role="region" para que en móviles un usuario de teclado pueda scrollear la tabla si desborda -->
-            <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="grupo-a-title">
-                <table class="accessible-fixture-table accessible-table">
-                    <caption class="sr-only">Calendario de partidos del Grupo A, detallando fecha, horario, equipos locales y visitantes.</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Local</th>
-                            <th scope="col">Visitante</th>
-                            <th scope="col">Sede</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Fila con el equipo destacado de ejemplo (México, anfitrión) -->
-                        <tr class="highlight-row">
-                            <td>11 de Junio</td>
-                            <!-- Usamos data-utc para guardar la hora universal estricta (ISO 8601). El JS la convertirá. -->
-                            <td><time class="match-time" data-utc="2026-06-11T20:00:00Z">17:00</time></td>
-                            <th scope="row">México</th>
-                            <td>A2</td>
-                            <td>Ciudad de México</td>
-                        </tr>
-                        <tr>
-                            <td>12 de Junio</td>
-                            <td><time class="match-time" data-utc="2026-06-12T23:00:00Z">20:00</time></td>
-                            <th scope="row">A3</th>
-                            <td>A4</td>
-                            <td>Guadalajara</td>
-                        </tr>
-                    </tbody>
-                </table>
+<section class="resource-section" aria-labelledby="titulo-grupos">
+        <h2 id="titulo-grupos">Fase de Grupos: Fixture Dinámico</h2>
+        <p>Consulta los días y horarios de los partidos. Puedes ajustar la zona horaria según tu país para no perderte ningún encuentro.</p>
+
+        <div class="timezone-container">
+            <label for="timezone-select">Selecciona tu zona horaria:</label>
+            <select id="timezone-select" aria-controls="tz-announcer">
+                <option value="America/Argentina/Buenos_Aires" selected>Argentina (ART)</option>
+                <option value="America/Mexico_City">México (CDMX)</option>
+                <option value="America/Bogota">Colombia / Perú / Ecuador</option>
+                <option value="Europe/Madrid">España (Península)</option>
+                <option value="America/New_York">Estados Unidos (Este)</option>
+            </select>
+        </div>
+
+        <div id="tz-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+        <div class="accessible-accordion group-section" style="margin-bottom: 1.5rem;">
+            <h3 id="grupo-a-title" class="accordion-heading">
+                <button
+                    class="accordion-trigger"
+                    aria-expanded="false"
+                    aria-controls="panel-grupo-a"
+                    id="btn-grupo-a"
+                >
+                    <span class="accordion-title-text">Grupo A</span>
+                    <span class="accordion-chevron" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </span>
+                </button>
+            </h3>
+
+            <div 
+                class="accordion-panel"
+                id="panel-grupo-a"
+                role="region"
+                aria-labelledby="btn-grupo-a"
+                hidden
+            >
+            <!-- ------------
+                  Grupo A
+            -------------- -->
+                <div class="accordion-panel-inner">
+                    <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="btn-grupo-a">
+                        <table class="accessible-fixture-table accessible-table">
+                            <caption class="sr-only">Calendario de partidos del Grupo A, detallando fecha, horario, equipos locales y visitantes.</caption>
+                            <div class="group-teams-summary">
+                                <h4>Equipos que conforman el Grupo A</h4>
+                                <ul class="countries-grid" aria-label="Países del Grupo A">
+                                    <li class="country-name-match"><span aria-hidden="true">🇲🇽</span> México</li>
+                                    <li class="country-name-match"><span aria-hidden="true">🇳🇿</span> Nueva Zelanda</li>
+                                    <li class="country-name-match"><span aria-hidden="true">🇰🇷</span> Corea del Sur</li>
+                                    <li class="country-name-match"><span aria-hidden="true">🇨🇿</span> Chequia</li>
+                                    <li class="country-name-match"><span aria-hidden="true">🇿🇦</span> Sudáfrica</li>
+                                </ul>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora (local)</th>
+                                    <th scope="col">Equipo local</th>
+                                    <th scope="col">Equipo visitante</th>
+                                    <th scope="col">Sede</th>
+                                    <th scope="col">Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- partido 1 -->
+                                <tr class="highlight-row">
+                                    <td>11 de junio</td>
+                                    <td><time datetime="2026-06-11T23:00:00Z" data-utc="2026-06-11T23:00:00Z">16:00</time></td>
+                                    <th scope="row">México</th>
+                                    <td>Nueva Zelanda</td>
+                                    <td>Ciudad de México</td>
+                                    <td>–</td>
+                                </tr>
+                                <!-- partido 2 -->
+                                <tr class="highlight-row">
+                                    <td>11 de junio</td>
+                                    <td><time datetime="2026-06-12T23:00:00Z" data-utc="2026-06-12T23:00:00Z">23:00</time></td>
+                                    <th scope="row">Corea del Sur</th>
+                                    <td>Chequia</td>
+                                    <td>Guadalajara</td>
+                                    <td>–</td>
+                                </tr>
+                                <!-- partido 3 -->
+                                <tr class="highlight-row">
+                                    <td>18 de junio</td>
+                                    <td><time datetime="2026-06-17T23:00:00Z" data-utc="2026-06-17T23:00:00Z">13:00</time></td>
+                                    <th scope="row">Chequia</th>
+                                    <td>Sudáfrica</td>
+                                    <td>Atlanta</td>
+                                    <td>–</td>
+                                </tr>
+                                <!-- partido 4 -->
+                                <tr class="highlight-row">
+                                    <td>18 de junio</td>
+                                    <td><time datetime="2026-06-18T23:00:00Z" data-utc="2026-06-18T23:00:00Z">22:00</time></td>
+                                    <th scope="row">México</th>
+                                    <td>Corea del Sur</td>
+                                    <td>Guadalajara</td>
+                                    <td>–</td>
+                                </tr>
+                                <!-- partido 5 -->
+                                <tr class="highlight-row">
+                                    <td>24 de junio</td>
+                                    <td><time datetime="2026-06-23T22:00:00Z" data-utc="2026-06-23T22:00:00Z">22:00</time></td>
+                                    <th scope="row">Chequia</th>
+                                    <td>México</td>
+                                    <td>Ciudad de México</td>
+                                    <td>–</td>
+                                </tr>
+                                <!-- partido 6 -->
+                                <tr class="highlight-row">
+                                    <td>24 de junio</td>
+                                    <td><time datetime="2026-06-24T01:00:00Z" data-utc="2026-06-24T01:00:00Z">22:00</time></td>
+                                    <th scope="row">Sudáfrica </th>
+                                    <td>Corea del Sur</td>
+                                    <td>Houston</td>
+                                    <td>–</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- GRUPO B -->
-        <div class="group-section">
-            <h3 id="grupo-b-title" class="group-title">Grupo B</h3>
-            <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="grupo-b-title">
-                <table class="accessible-fixture-table accessible-table">
-                    <caption class="sr-only">Calendario de partidos del Grupo B.</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Local</th>
-                            <th scope="col">Visitante</th>
-                            <th scope="col">Sede</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>12 de Junio</td>
-                            <td><time class="match-time" data-utc="2026-06-12T19:00:00Z">16:00</time></td>
-                            <th scope="row">Canadá</th>
-                            <td>B2</td>
-                            <td>Toronto</td>
-                        </tr>
-                        <tr>
-                            <td>13 de Junio</td>
-                            <td><time class="match-time" data-utc="2026-06-13T22:00:00Z">19:00</time></td>
-                            <th scope="row">B3</th>
-                            <td>B4</td>
-                            <td>Vancouver</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="accessible-accordion group-section" style="margin-bottom: 1.5rem;">
+            <h3 id="grupo-b-title" class="accordion-heading">
+                <button
+                    class="accordion-trigger"
+                    aria-expanded="false"
+                    aria-controls="panel-grupo-b"
+                    id="btn-grupo-b"
+                >
+                    <span class="accordion-title-text">Grupo B</span>
+                    <span class="accordion-chevron" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </span>
+                </button>
+            </h3>
+
+            <div 
+                class="accordion-panel"
+                id="panel-grupo-b"
+                role="region"
+                aria-labelledby="btn-grupo-b"
+                hidden
+            >
+                <div class="accordion-panel-inner">
+                    <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="btn-grupo-b">
+                        <table class="accessible-fixture-table accessible-table">
+                            <caption class="sr-only">Calendario de partidos del Grupo B.</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Local</th>
+                                    <th scope="col">Visitante</th>
+                                    <th scope="col">Sede</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>12 de Junio</td>
+                                    <td><time class="match-time" datetime="2026-06-12T19:00:00Z" data-utc="2026-06-12T19:00:00Z">16:00</time></td>
+                                    <th scope="row">Canadá</th>
+                                    <td>B2</td>
+                                    <td>Toronto</td>
+                                </tr>
+                                <tr>
+                                    <td>13 de Junio</td>
+                                    <td><time class="match-time" datetime="2026-06-13T22:00:00Z" data-utc="2026-06-13T22:00:00Z">19:00</time></td>
+                                    <th scope="row">B3</th>
+                                    <td>B4</td>
+                                    <td>Vancouver</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accessible-accordion group-section" style="margin-bottom: 1.5rem;">
+            <h3 id="grupo-c-title" class="accordion-heading">
+                <button
+                    class="accordion-trigger"
+                    aria-expanded="false"
+                    aria-controls="panel-grupo-c"
+                    id="btn-grupo-c"
+                >
+                    <span class="accordion-title-text">Grupo C</span>
+                    <span class="accordion-chevron" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </span>
+                </button>
+            </h3>
+
+            <div 
+                class="accordion-panel"
+                id="panel-grupo-c"
+                role="region"
+                aria-labelledby="btn-grupo-c"
+                hidden
+            >
+                <div class="accordion-panel-inner">
+                    <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="btn-grupo-c">
+                        <table class="accessible-fixture-table accessible-table">
+                            <caption class="sr-only">Calendario de partidos del Grupo C.</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Local</th>
+                                    <th scope="col">Visitante</th>
+                                    <th scope="col">Sede</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>13 de Junio</td>
+                                    <td><time class="match-time" datetime="2026-06-13T20:00:00Z" data-utc="2026-06-13T20:00:00Z">17:00</time></td>
+                                    <th scope="row">Estados Unidos</th>
+                                    <td>C2</td>
+                                    <td>Los Ángeles</td>
+                                </tr>
+                                <tr>
+                                    <td>14 de Junio</td>
+                                    <td><time class="match-time" datetime="2026-06-14T23:00:00Z" data-utc="2026-06-14T23:00:00Z">20:00</time></td>
+                                    <th scope="row">C3</th>
+                                    <td>C4</td>
+                                    <td>Seattle</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -88,3 +88,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar una vez al cargar la página para sincronizar con la opción "selected" por defecto
     updateTimes(tzSelect.value);
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const timezoneSelect = document.getElementById('timezone-select');
+    const matchTimes = document.querySelectorAll('.match-time');
+    const tzAnnouncer = document.getElementById('tz-announcer');
+
+    if (timezoneSelect && matchTimes.length > 0) {
+        timezoneSelect.addEventListener('change', (e) => {
+            const selectedZone = e.target.value;
+            const zoneName = e.target.options[e.target.selectedIndex].text;
+            
+            matchTimes.forEach(timeEl => {
+                const utcDateString = timeEl.getAttribute('data-utc');
+                if (utcDateString) {
+                    const dateObj = new Date(utcDateString);
+                    
+                    // Formatear la hora según la zona seleccionada
+                    const formatter = new Intl.DateTimeFormat('es-AR', {
+                        timeZone: selectedZone,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    });
+                    
+                    timeEl.textContent = formatter.format(dateObj);
+                }
+            });
+
+            // Anuncio para lectores de pantalla (WCAG 4.1.3 Status Messages)
+            if (tzAnnouncer) {
+                tzAnnouncer.textContent = `Los horarios de los partidos se han actualizado a la zona horaria de ${zoneName}.`;
+            }
+        });
+    }
+});
