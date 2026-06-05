@@ -229,66 +229,101 @@
             </div>
         </div>
     </section>
+    <!-- SECCIÓN: FASE DE GRUPOS Y ZONA HORARIA -->
+    <section class="resource-section" aria-labelledby="titulo-grupos">
+        <h2 id="titulo-grupos">Fase de Grupos: Fixture Dinámico</h2>
+        <p>Consulta los días y horarios de los partidos. Puedes ajustar la zona horaria según tu país para no perderte ningún encuentro.</p>
 
-    <section class="resource-section" aria-labelledby="titulo-historial">
-        <h2 id="titulo-historial">Historial de Campeones del Mundo</h2>
-        <p>Resumen de los países que han levantado la copa desde sus inicios en 1930 hasta la fecha.</p>
-        
-        <div class="accessible-table-container">
-            <table class="accessible-table">
-                <caption>Títulos Mundiales por País (1930 - 2022)</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">País</th>
-                        <th scope="col">Cantidad de Títulos</th>
-                        <th scope="col">Años de Campeonato</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Brasil</th>
-                        <td>5</td>
-                        <td>1958, 1962, 1970, 1994, 2002</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Alemania</th>
-                        <td>4</td>
-                        <td>1954, 1974, 1990, 2014</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Italia</th>
-                        <td>4</td>
-                        <td>1934, 1938, 1982, 2006</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Argentina</th>
-                        <td>3</td>
-                        <td>1978, 1986, 2022</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Francia</th>
-                        <td>2</td>
-                        <td>1998, 2018</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Uruguay</th>
-                        <td>2</td>
-                        <td>1930, 1950</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">España</th>
-                        <td>1</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Inglaterra</th>
-                        <td>1</td>
-                        <td>1966</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Controles de Zona Horaria Accesibles -->
+        <div class="timezone-container">
+            <label for="timezone-select">Selecciona tu zona horaria:</label>
+            <select id="timezone-select">
+                <option value="America/Argentina/Buenos_Aires" selected>Argentina (ART)</option>
+                <option value="America/Mexico_City">México (CDMX)</option>
+                <option value="America/Bogota">Colombia / Perú / Ecuador</option>
+                <option value="Europe/Madrid">España (Península)</option>
+                <option value="America/New_York">Estados Unidos (Este)</option>
+            </select>
         </div>
+
+        <!-- Región viva ARIA: Anuncia a los lectores de pantalla cuando cambia la hora -->
+        <div id="tz-announcer" class="sr-only" aria-live="polite"></div>
+
+        <!-- GRUPO A -->
+        <div class="group-section">
+            <h3 id="grupo-a-title" class="group-title">Grupo A</h3>
+            <!-- El wrapper tiene tabindex="0" y role="region" para que en móviles un usuario de teclado pueda scrollear la tabla si desborda -->
+            <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="grupo-a-title">
+                <table class="accessible-fixture-table accessible-table">
+                    <caption class="sr-only">Calendario de partidos del Grupo A, detallando fecha, horario, equipos locales y visitantes.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Local</th>
+                            <th scope="col">Visitante</th>
+                            <th scope="col">Sede</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Fila con el equipo destacado de ejemplo (México, anfitrión) -->
+                        <tr class="highlight-row">
+                            <td>11 de Junio</td>
+                            <!-- Usamos data-utc para guardar la hora universal estricta (ISO 8601). El JS la convertirá. -->
+                            <td><time class="match-time" data-utc="2026-06-11T20:00:00Z">17:00</time></td>
+                            <th scope="row">México</th>
+                            <td>A2</td>
+                            <td>Ciudad de México</td>
+                        </tr>
+                        <tr>
+                            <td>12 de Junio</td>
+                            <td><time class="match-time" data-utc="2026-06-12T23:00:00Z">20:00</time></td>
+                            <th scope="row">A3</th>
+                            <td>A4</td>
+                            <td>Guadalajara</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- GRUPO B -->
+        <div class="group-section">
+            <h3 id="grupo-b-title" class="group-title">Grupo B</h3>
+            <div class="table-responsive-wrapper" tabindex="0" role="region" aria-labelledby="grupo-b-title">
+                <table class="accessible-fixture-table accessible-table">
+                    <caption class="sr-only">Calendario de partidos del Grupo B.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Local</th>
+                            <th scope="col">Visitante</th>
+                            <th scope="col">Sede</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12 de Junio</td>
+                            <td><time class="match-time" data-utc="2026-06-12T19:00:00Z">16:00</time></td>
+                            <th scope="row">Canadá</th>
+                            <td>B2</td>
+                            <td>Toronto</td>
+                        </tr>
+                        <tr>
+                            <td>13 de Junio</td>
+                            <td><time class="match-time" data-utc="2026-06-13T22:00:00Z">19:00</time></td>
+                            <th scope="row">B3</th>
+                            <td>B4</td>
+                            <td>Vancouver</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </section>
+   
 
 
     <section>
@@ -361,6 +396,6 @@
     <p>&copy; 2026 Kyosei Accesibilidad. Todos los derechos reservados.</p>
 </div>
 </footer>
-<script src="/js/main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

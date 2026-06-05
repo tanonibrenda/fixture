@@ -2440,3 +2440,57 @@ body.dark-mode .accessible-fixture-table thead th {
     background-color: #1A1A1A;
     border-bottom: 2px solid var(--secondary-color);
 }
+
+/* --- ESTILOS PARA ZONA HORARIA Y GRUPOS --- */
+        .timezone-container {
+            background-color: #f4f4f4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 6px solid #155BA6; /* Azul Kyosei */
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .timezone-container label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #121212;
+        }
+
+        .timezone-container select {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 2px solid #155BA6;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #121212;
+            min-height: 44px; /* WCAG 2.5.8 Target Size AAA */
+            cursor: pointer;
+        }
+
+        .group-section {
+            margin-bottom: 3rem;
+        }
+
+        .group-title {
+            color: #B35812; /* Naranja Kyosei */
+            border-bottom: 2px solid #B35812;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Envoltura para scroll accesible por teclado en tablas móviles */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .table-responsive-wrapper:focus-visible {
+            outline: 3px solid #005A9C;
+            outline-offset: 2px;
+        }
