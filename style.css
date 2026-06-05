@@ -2372,3 +2372,71 @@ input[type="radio"].sr-only:checked + .color-option {
 /* =============================================================================
    19. Fixture
 ============================================================================= */
+
+
+.fixture-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 6rem;
+}
+
+.table-responsive-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    /* Indicador visual de foco para usuarios de teclado (WCAG 2.4.11) */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.table-responsive-wrapper:focus-visible {
+    outline: 3px solid var(--focus-outline-color);
+    outline-offset: 4px;
+}
+
+.accessible-fixture-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    min-width: 600px; /* Asegura legibilidad antes de hacer scroll */
+}
+
+.accessible-fixture-table th,
+.accessible-fixture-table td {
+    padding: 1.2rem 1rem; /* Target Size AAA: celdas amplias */
+    text-align: left;
+    border-bottom: 2px solid color-mix(in srgb, var(--primary-color) 20%, var(--bg-color));
+    font-size: 1.05rem;
+}
+
+.accessible-fixture-table thead th {
+    background-color: var(--primary-color);
+    color: #FFFFFF; /* Contraste > 7:1 (AAA) */
+    font-weight: bold;
+    letter-spacing: var(--base-letter-spacing);
+}
+
+/* Identificar el encabezado de fila para los lectores de pantalla */
+.accessible-fixture-table tbody th {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.accessible-fixture-table tbody tr:hover {
+    background-color: color-mix(in srgb, var(--primary-color) 8%, var(--bg-color));
+}
+
+/* Destacar los partidos de nuestra selección u otros clave */
+.highlight-row {
+    background-color: color-mix(in srgb, var(--secondary-color) 10%, var(--bg-color));
+    border-left: 6px solid var(--secondary-color);
+}
+
+body.dark-mode .accessible-fixture-table {
+    border: 1px solid #333;
+}
+
+body.dark-mode .accessible-fixture-table thead th {
+    background-color: #1A1A1A;
+    border-bottom: 2px solid var(--secondary-color);
+}
