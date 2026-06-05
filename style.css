@@ -2494,3 +2494,51 @@ body.dark-mode .accessible-fixture-table thead th {
             outline: 3px solid #005A9C;
             outline-offset: 2px;
         }
+        /* =============================================================================
+   ESTILOS COMPARTIDOS PARA PAÍSES Y FIXTURE (WCAG AA/AAA)
+============================================================================= */
+
+/* Unifica la tipografía y color de los países en cualquier sección */
+.country-name-match,
+.accessible-fixture-table tbody th.country-name-match,
+.accessible-fixture-table tbody td.country-name-match {
+    font-weight: normal; /* Sobrescribe el bold del <th> para igualarlo a las descripciones */
+    color: var(--text-color); /* Sobrescribe el var(--primary-color) para uniformidad */
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaciado accesible entre bandera y texto */
+}
+
+/* Ajuste específico para cuando la celda es parte de la grilla de países */
+ul.countries-grid .country-name-match {
+    display: inline-flex;
+    margin-bottom: 0.5rem;
+}
+
+/* Espaciado del contenedor del resumen de equipos antes de la tabla */
+.group-teams-summary {
+    margin-bottom: 2rem;
+}
+
+.group-teams-summary h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Estilo para la nota al pie de la tabla "Pasa a la siguiente fase" */
+.phase-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: color-mix(in srgb, var(--primary-color) 8%, var(--bg-color));
+    border-left: 4px solid var(--secondary-color);
+    border-radius: 0 8px 8px 0;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+/* Modo oscuro para la nota */
+body.dark-mode .phase-note {
+    background-color: color-mix(in srgb, var(--primary-color) 14%, var(--bg-color));
+}
