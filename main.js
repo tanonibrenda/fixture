@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    /* =====================================================================
+       1. ACORDEONES (Fixtures y Grupos) - WCAG 2.1.1
+       ===================================================================== */
     const accordionTriggers = document.querySelectorAll('.accordion-trigger');
     
     accordionTriggers.forEach(trigger => {
@@ -6,18 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
             const panelId = trigger.getAttribute('aria-controls');
             const panel = document.getElementById(panelId);
-            
-            // Toggle de estado
-            trigger.setAttribute('aria-expanded', !isExpanded);
-            
-            if (!isExpanded) {
-                panel.removeAttribute('hidden');
-            } else {
-                panel.setAttribute('hidden', '');
+
+            // Evitar errores si el panel no existe en el DOM
+            if (panel) {
+                trigger.setAttribute('aria-expanded', !isExpanded);
+                if (!isExpanded) {
+                    panel.removeAttribute('hidden');
+                } else {
+                    panel.setAttribute('hidden', '');
+                }
             }
         });
 
-        // Soporte de teclado (Flechas) para navegabilidad AAA
+        // Operabilidad por teclado
         trigger.addEventListener('keydown', (e) => {
             const index = Array.from(accordionTriggers).indexOf(trigger);
             let nextIndex = index;
@@ -41,84 +46,93 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
-document.addEventListener('DOMContentLoaded', () => {
-    // --- LÓGICA DE ZONA HORARIA ACCESIBLE ---
-    const tzSelect = document.getElementById('timezone-select');
-    const timeElements = document.querySelectorAll('.match-time');
-    const announcer = document.getElementById('tz-announcer');
 
-    function updateTimes(selectedZone) {
-        timeElements.forEach(timeEl => {
-            // Extraer la fecha y hora original en formato UTC (Universal)
-            const utcDateString = timeEl.getAttribute('data-utc');
-            if (!utcDateString) return;
+    /* =====================================================================
+       2. MENÚ DE NAVEGACIÓN MÓVIL (Menú Desplegable)
+       ===================================================================== */
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mainMenu = document.getElementById('main-menu');
 
-            const dateObj = new Date(utcDateString);
-
-            // Formatear la hora según la zona horaria elegida utilizando la API Intl
-            const options = { 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                timeZone: selectedZone,
-                hour12: false // Formato 24hs por claridad internacional
-            };
-
-            try {
-                const formattedTime = new Intl.DateTimeFormat('es-AR', options).format(dateObj);
-                timeEl.textContent = formattedTime;
-                
-                // Actualizar atributo datetime de HTML5 para mejor semántica
-                timeEl.setAttribute('datetime', dateObj.toISOString());
-            } catch (error) {
-                console.error("Error al convertir zona horaria:", error);
-            }
+    if (mobileMenuToggle && mainMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+            mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+            mainMenu.classList.toggle('open');
         });
-
-        // WCAG Criterio 4.1.3 (Status Messages): Avisar al lector de pantalla que hubo un cambio
-        const selectedText = tzSelect.options[tzSelect.selectedIndex].text;
-        announcer.textContent = `Los horarios de los partidos se han actualizado a la zona horaria de: ${selectedText}.`;
     }
 
-    // Escuchar el evento de cambio en el selector
-    tzSelect.addEventListener('change', (e) => {
-        updateTimes(e.target.value);
-    });
+    /* =====================================================================
+       3. PANEL DE HERRAMIENTAS DE ACCESIBILIDAD
+       ===================================================================== */
+    const accMenuToggle = document.getElementById('acc-menu-toggle');
+    const accPanel = document.getElementById('acc-panel');
+    const accCloseBtn = document.getElementById('accCloseBtn');
 
-    // Ejecutar una vez al cargar la página para sincronizar con la opción "selected" por defecto
-    updateTimes(tzSelect.value);
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const timezoneSelect = document.getElementById('timezone-select');
-    const matchTimes = document.querySelectorAll('.match-time');
-    const tzAnnouncer = document.getElementById('tz-announcer');
-
-    if (timezoneSelect && matchTimes.length > 0) {
-        timezoneSelect.addEventListener('change', (e) => {
-            const selectedZone = e.target.value;
-            const zoneName = e.target.options[e.target.selectedIndex].text;
+    if (accMenuToggle && accPanel) {
+        function toggleAccPanel() {
+            const isExpanded = accMenuToggle.getAttribute('aria-expanded') === 'true';
+            accMenuToggle.setAttribute('aria-expanded', !isExpanded);
             
-            matchTimes.forEach(timeEl => {
+            if (!isExpanded) {
+                accPanel.removeAttribute('hidden');
+                // Derivar el foco al botón de cerrar para asegurar el flujo del lector
+                if(accCloseBtn) accCloseBtn.focus(); 
+            } else {
+                accPanel.setAttribute('hidden', '');
+                // Devolver el foco al disparador principal
+                accMenuToggle.focus(); 
+            }
+        }
+
+        accMenuToggle.addEventListener('click', toggleAccPanel);
+        if(accCloseBtn) accCloseBtn.addEventListener('click', toggleAccPanel);
+    }
+
+    /* =====================================================================
+       4. ZONA HORARIA DINÁMICA (Lista Desplegable) - WCAG 4.1.3
+       ===================================================================== */
+    const tzSelect = document.getElementById('timezone-select');
+    
+    // CORRECCIÓN: Se capturan absolutamente todos los tiempos que posean data-utc
+    const timeElements = document.querySelectorAll('time[data-utc]');
+    const announcer = document.getElementById('tz-announcer');
+
+    if (tzSelect && timeElements.length > 0) {
+        function updateTimes(selectedZone, zoneName) {
+            timeElements.forEach(timeEl => {
                 const utcDateString = timeEl.getAttribute('data-utc');
-                if (utcDateString) {
-                    const dateObj = new Date(utcDateString);
-                    
-                    // Formatear la hora según la zona seleccionada
-                    const formatter = new Intl.DateTimeFormat('es-AR', {
-                        timeZone: selectedZone,
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false
-                    });
-                    
-                    timeEl.textContent = formatter.format(dateObj);
+                if (!utcDateString) return;
+
+                const dateObj = new Date(utcDateString);
+                const options = { 
+                    timeZone: selectedZone,
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    hour12: false 
+                };
+
+                try {
+                    const formattedTime = new Intl.DateTimeFormat('es-AR', options).format(dateObj);
+                    timeEl.textContent = formattedTime;
+                    timeEl.setAttribute('datetime', dateObj.toISOString());
+                } catch (error) {
+                    console.error("Error al convertir la zona horaria:", error);
                 }
             });
 
-            // Anuncio para lectores de pantalla (WCAG 4.1.3 Status Messages)
-            if (tzAnnouncer) {
-                tzAnnouncer.textContent = `Los horarios de los partidos se han actualizado a la zona horaria de ${zoneName}.`;
+            // Anuncio para tecnologías de asistencia
+            if (announcer && zoneName) {
+                announcer.textContent = `Los horarios se han actualizado a la zona horaria de: ${zoneName}.`;
             }
+        }
+
+        tzSelect.addEventListener('change', (e) => {
+            const selectedZone = e.target.value;
+            const zoneName = e.target.options[e.target.selectedIndex].text;
+            updateTimes(selectedZone, zoneName);
         });
+
+        // Inicialización silenciosa al renderizar el DOM
+        updateTimes(tzSelect.value, null);
     }
 });
