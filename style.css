@@ -2236,3 +2236,104 @@ body.dark-mode .accessible-fixture-table thead th {
         background-color: #1e1e1e;
     }
 }
+/* =============================================================================
+   20. TARJETAS DE FASES ELIMINATORIAS (KNOCKOUTS)
+   WCAG 1.4.3 Contrast, WCAG 1.4.10 Reflow, WCAG 1.3.1 Info and Relationships
+============================================================================= */
+
+.match-cards-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Diseño de la Tarjeta */
+.match-card {
+    background-color: var(--header-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Encabezado del partido (Número, Fecha/Hora, Sede) */
+.match-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid color-mix(in srgb, var(--secondary-color) 40%, var(--bg-color));
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.match-number {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.match-venue {
+    font-style: italic;
+}
+
+/* Contenedor de equipos y el VS */
+.match-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.team-condition {
+    flex: 1;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+/* Etiqueta central "VS" */
+.vs-badge {
+    background-color: var(--secondary-color);
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+}
+
+/* Soporte para Modo Oscuro */
+body.dark-mode .match-card {
+    background-color: #1A1A1A;
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .vs-badge {
+    background-color: var(--secondary-color);
+    color: #121212; /* Ajuste para mantener contraste AAA sobre fondo naranja */
+}
+
+/* Responsividad extrema (Zoom 400% o celulares muy pequeños) */
+@media (max-width: 24.375em) {
+    .match-teams {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .vs-badge {
+        padding: 0.3rem 1rem;
+        width: fit-content;
+    }
+}
