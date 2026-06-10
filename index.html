@@ -248,12 +248,12 @@
         </div>
     </section>
     <!-- SECCIÓN: FASE DE GRUPOS Y ZONA HORARIA -->
-    <section class="resource-section" aria-labelledby="titulo-grupos">
+    <!-- <section class="resource-section" aria-labelledby="titulo-grupos">
         <h2 id="titulo-grupos">Fase de Grupos: Fixture Dinámico</h2>
-        <p>Consulta los días y horarios de los partidos. Puedes ajustar la zona horaria según tu país para no perderte ningún encuentro.</p>
+        <p>Consulta los días y horarios de los partidos. Puedes ajustar la zona horaria según tu país para no perderte ningún encuentro.</p> -->
 
         <!-- Controles de Zona Horaria Accesibles -->
-        <!-- <div class="timezone-container">
+        <div class="timezone-container">
             <label for="timezone-select">Selecciona tu zona horaria:</label>
             <select id="timezone-select">
                 <option value="America/Argentina/Buenos_Aires" selected>Argentina (ART)</option>
@@ -262,14 +262,14 @@
                 <option value="Europe/Madrid">España (Península)</option>
                 <option value="America/New_York">Estados Unidos (Este)</option>
             </select>
-        </div> -->
+        </div>
 
         <!-- Región viva ARIA: Anuncia a los lectores de pantalla cuando cambia la hora -->
         <div id="tz-announcer" class="sr-only" aria-live="polite"></div>
 
 <section class="resource-section" aria-labelledby="titulo-grupos">
-        <h2 id="titulo-grupos">Fase de Grupos: Fixture Dinámico</h2>
-        <p>Consulta los días y horarios de los partidos. Puedes ajustar la zona horaria según tu país para no perderte ningún encuentro.</p>
+        <h2 id="titulo-grupos">Fase de Grupos</h2>
+        <p>Consulta los días y horarios de los partidos.</p>
 
         <div class="timezone-container">
             <label for="timezone-select">Selecciona tu zona horaria:</label>
@@ -327,7 +327,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Fecha</th>
-                                    <th scope="col">Hora (local)</th>
+                                    <th scope="col">Hora</th>
                                     <th scope="col">Equipo local</th>
                                     <th scope="col">Equipo visitante</th>
                                     <th scope="col">Sede</th>
@@ -338,16 +338,43 @@
                                 <!-- partido 1 -->
                                 <tr class="highlight-row">
                                     <td>11 de junio</td>
-                                    <td><time datetime="2026-06-11T23:00:00Z" data-utc="2026-06-11T23:00:00Z">16:00</time></td>
-                                    <th>México</th>
-                                    <td>Nueva Zelanda</td>
+                                    <td>
+                                        <!-- <div><time datetime="2026-06-11T23:00:00Z" data-utc="2026-06-11T23:00:00Z">16:00</time></div> -->
+                                        <div>
+                                            <div class="multi-time-info">
+                                            <!-- <span>Horarios:</span> -->
+                                            <ul class="time-list">
+                                                <li>16:00 (ARG/URU)</li>
+                                                <li>15:00 (CHI)</li>
+                                                <li>14:00 (COL/ECU/PER)</li>
+                                                <li>13:00 (MEX)</li>
+                                                <li>11:00 (ESP)</li>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row">México</th>
+                                    <td>Sudáfrica</td>
                                     <td>Ciudad de México</td>
                                     <td>–</td>
                                 </tr>
                                 <!-- partido 2 -->
                                 <tr class="highlight-row">
                                     <td>11 de junio</td>
-                                    <td><time datetime="2026-06-12T23:00:00Z" data-utc="2026-06-12T23:00:00Z">23:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-12T23:00:00Z" data-utc="2026-06-12T23:00:00Z">23:00</time> -->
+                                    <div>
+                                        <div class="multi-time-info">
+                                            <!-- <span>Horarios:</span> -->
+                                            <ul class="time-list">
+                                                <li>23:00 (ARG/URU)</li>
+                                                <li>22:00 (CHI)</li>
+                                                <li>21:00 (COL/ECU/PER)</li>
+                                                <li>20:00 (MEX)</li>
+                                                <li>04:00 del 12 junio (ESP)</li>
+                                            </ul>
+                                    </div>
+                                    </td>
                                     <th scope="row">Corea del Sur</th>
                                     <td>República Checa</td>
                                     <td>Guadalajara</td>
@@ -356,7 +383,19 @@
                                 <!-- partido 3 -->
                                 <tr class="highlight-row">
                                     <td>18 de junio</td>
-                                    <td><time datetime="2026-06-17T23:00:00Z" data-utc="2026-06-17T23:00:00Z">13:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-17T23:00:00Z" data-utc="2026-06-17T23:00:00Z">13:00</time> -->
+                                    <div class="multi-time-info">
+                                            <!-- <span>Horarios:</span> -->
+                                            <ul class="time-list">
+                                                <li>13:00 (ARG/URU)</li>
+                                                <li>12:00 (CHI)</li>
+                                                <li>11:00 (COL/ECU/PER)</li>
+                                                <li>10:00 (MEX)</li>
+                                                <li>18:00 (ESP)</li>
+                                            </ul>
+                                    </div>     
+                                    </td>
                                     <th scope="row">República Checa</th>
                                     <td>Sudáfrica</td>
                                     <td>Atlanta</td>
@@ -365,7 +404,19 @@
                                 <!-- partido 4 -->
                                 <tr class="highlight-row">
                                     <td>18 de junio</td>
-                                    <td><time datetime="2026-06-18T23:00:00Z" data-utc="2026-06-18T23:00:00Z">22:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-18T23:00:00Z" data-utc="2026-06-18T23:00:00Z">22:00</time> -->
+                                    <div class="multi-time-info">
+                                            <!-- <span>Horarios:</span> -->
+                                            <ul class="time-list">
+                                                <li>22:00 (ARG/URU)</li>
+                                                <li>21:00 (CHI)</li>
+                                                <li>20:00 (COL/ECU/PER)</li>
+                                                <li>19:00 (MEX)</li>
+                                                <li>17:00 (ESP)</li>
+                                            </ul>
+                                    </div>       
+                                    </td>
                                     <th scope="row">México</th>
                                     <td>Corea del Sur</td>
                                     <td>Guadalajara</td>
@@ -374,7 +425,19 @@
                                 <!-- partido 5 -->
                                 <tr class="highlight-row">
                                     <td>24 de junio</td>
-                                    <td><time datetime="2026-06-23T22:00:00Z" data-utc="2026-06-23T22:00:00Z">22:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-23T22:00:00Z" data-utc="2026-06-23T22:00:00Z">22:00</time> -->
+                                    <div class="multi-time-info">
+                                            <!-- <span>Horarios:</span> -->
+                                            <ul class="time-list">
+                                                <li>22:00 (ARG/URU)</li>
+                                                <li>21:00 (CHI)</li>
+                                                <li>20:00 (COL/ECU/PER)</li>
+                                                <li>19:00 (MEX)</li>
+                                                <li>17:00 (ESP)</li>
+                                            </ul>
+                                    </div>       
+                                    </td>
                                     <th scope="row">República Checa</th>
                                     <td>México</td>
                                     <td>Ciudad de México</td>
@@ -383,7 +446,19 @@
                                 <!-- partido 6 -->
                                 <tr class="highlight-row">
                                     <td>24 de junio</td>
-                                    <td><time datetime="2026-06-24T01:00:00Z" data-utc="2026-06-24T01:00:00Z">22:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-24T01:00:00Z" data-utc="2026-06-24T01:00:00Z">22:00</time> -->
+                                    <div class="multi-time-info">
+                                            <!-- <span>Horarios:</span> -->
+                                            <ul class="time-list">
+                                                <li>22:00 (ARG/URU)</li>
+                                                <li>21:00 (CHI)</li>
+                                                <li>20:00 (COL/ECU/PER)</li>
+                                                <li>19:00 (MEX)</li>
+                                                <li>17:00 (ESP)</li>
+                                            </ul>
+                                    </div>    
+                                    </td>
                                     <th scope="row">Sudáfrica </th>
                                     <td>Corea del Sur</td>
                                     <td>Guadalupe</td>
@@ -441,33 +516,73 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Fecha</th>
-                                    <th scope="col">Hora (local)</th>
+                                    <th scope="col">Hora</th>
                                     <th scope="col">Equipo local</th>
                                     <th scope="col">Equipo visitante</th>
                                     <th scope="col">Sede</th>
                                     <th scope="col">Resultado</th>
                                 </tr>
                             </thead>
+                            <!-- Partido 1 grupo b -->
                             <tbody>
                                 <tr class="highlight-row">
                                     <td>12 de junio</td>
-                                    <td><time datetime="2026-06-12T19:00:00Z" data-utc="2026-06-12T19:00:00Z">16:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-12T19:00:00Z" data-utc="2026-06-12T19:00:00Z">16:00</time> -->
+                                     <div class="multi-time-info">
+                                            
+                                            <ul class="time-list">
+                                                 <li>16:00 (ARG/URU)</li>
+                                                <li>15:00 (CHI)</li>
+                                                <li>14:00 (COL/ECU/PER)</li>
+                                                <li>13:00 (MEX)</li>
+                                                <li>11:00 (ESP)</li>
+                                            </ul>
+                                    </div>     
+                                    </td>
                                     <th scope="row">Canadá</th>
                                     <td>Bosnia y Herzegovina</td>
                                     <td>Toronto</td>
                                     <td>–</td>
                                 </tr>
                                 <tr class="highlight-row">
+                                    <!-- partido 2 grupo b -->
                                     <td>13 de junio</td>
-                                    <td><time datetime="2026-06-13T22:00:00Z" data-utc="2026-06-13T22:00:00Z">13:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-13T22:00:00Z" data-utc="2026-06-13T22:00:00Z">13:00</time> -->
+                                        <div class="multi-time-info">
+                                            
+                                            <ul class="time-list">
+                                                <li>16:00 (ARG/URU)</li>
+                                                <li>15:00 (CHI)</li>
+                                                <li>14:00 (COL/ECU/PER)</li>
+                                                <li>13:00 (MEX)</li>
+                                                <li>11:00 (ESP)</li>
+                                            </ul>
+                                        </div> 
+                                    </td>
                                     <th scope="row">Qatar</th>
                                     <td>Suiza</td>
                                     <td>San Francisco</td>
                                     <td>–</td>
                                 </tr>
                                 <tr class="highlight-row">
+                                    <!-- partido 3 grupo b -->
                                     <td>18 de junio</td>
-                                    <td><time datetime="2026-06-18T19:00:00Z" data-utc="2026-06-18T19:00:00Z">16:00</time></td>
+                                    <td>
+                                        <!-- <time datetime="2026-06-18T19:00:00Z" data-utc="2026-06-18T19:00:00Z">16:00</time> -->
+                                     <div class="multi-time-info">
+                                            
+                                            <ul class="time-list">
+                                                <li>16:00 (ARG/URU)</li>
+                                                <li>15:00 (CHI)</li>
+                                                <li>14:00 (COL/ECU/PER)</li>
+                                                <li>13:00 (MEX)</li>
+                                                <li>11:00 (ESP)</li>
+
+                                            </ul>
+                                    </div>      
+                                    </td>
                                     <th scope="row">Suiza</th>
                                     <td>Bosnia y Herzegovina</td>
                                     <td>Los Ángeles</td>
@@ -475,7 +590,20 @@
                                 </tr>
                                 <tr class="highlight-row">
                                     <td>18 de junio</td>
-                                    <td><time datetime="2026-06-19T22:00:00Z" data-utc="2026-06-19T22:00:00Z">19:00</time></td>
+                                    <!-- partido 4 grupo b -->
+                                    <td>
+                                        <!-- <time datetime="2026-06-19T22:00:00Z" data-utc="2026-06-19T22:00:00Z">19:00</time> -->
+                                        <div class="multi-time-info">
+                                            
+                                            <ul class="time-list">
+                                                <li>19:00 (ARG/URU)</li>
+                                                <li>18:00 (CHI)</li>
+                                                <li>17:00 (COL/ECU/PER)</li>
+                                                <li>16:00 (MEX)</li>
+                                                <li>14:00 (ESP)</li>
+                                            </ul>
+                                    </div>  
+                                    </td>
                                     <th scope="row">Canadá</th>
                                     <td>Qatar</td>
                                     <td>Vancouver</td>
@@ -483,7 +611,20 @@
                                 </tr>
                                 <tr class="highlight-row">
                                     <td>24 de junio</td>
-                                    <td><time datetime="2026-06-24T19:00:00Z" data-utc="2026-06-24T19:00:00Z">16:00</time></td>
+                                    <!-- partido 5 grupo b -->
+                                    <td>
+                                        <!-- <time datetime="2026-06-24T19:00:00Z" data-utc="2026-06-24T19:00:00Z">16:00</time> -->      
+                                        <div class="multi-time-info">
+                                            
+                                            <ul class="time-list">
+                                                <li>16:00 (ARG/URU)</li>
+                                                <li>15:00 (CHI)</li>
+                                                <li>14:00 (COL/ECU/PER)</li>
+                                                <li>13:00 (MEX)</li>
+                                                <li>11:00 (ESP)</li>
+                                            </ul>
+                                        </div> 
+                                    </td>
                                     <th scope="row">Suiza</th>
                                     <td>Canada</td>
                                     <td>Vancouver</td>
@@ -491,7 +632,20 @@
                                 </tr>
                                 <tr class="highlight-row">
                                     <td>24 de junio</td>
-                                    <td><time datetime="2026-06-24T19:00:00Z" data-utc="2026-06-24T19:00:00Z">16:00</time></td>
+                                    <!-- partido 6 grupo b -->
+                                    <td>
+                                        <!-- <time datetime="2026-06-24T19:00:00Z" data-utc="2026-06-24T19:00:00Z">16:00</time> -->
+                                        <div class="multi-time-info">
+                                            
+                                            <ul class="time-list">
+                                                <li>16:00 (ARG/URU)</li>
+                                                <li>15:00 (CHI)</li>
+                                                <li>14:00 (COL/ECU/PER)</li>
+                                                <li>13:00 (MEX)</li>
+                                                <li>11:00 (ESP)</li>
+                                            </ul>
+                                        </div> 
+                                    </td>
                                     <th scope="row">Bosnia y Herzegovina</th>
                                     <td>Qatar</td>
                                     <td>Seattle</td>
@@ -550,7 +704,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Fecha</th>
-                                    <th scope="col">Hora (local)</th>
+                                    <th scope="col">Hora</th>
                                     <th scope="col">Equipo local</th>
                                     <th scope="col">Equipo visitante</th>
                                     <th scope="col">Sede</th>

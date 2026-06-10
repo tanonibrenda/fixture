@@ -89,50 +89,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =====================================================================
-       4. ZONA HORARIA DINÁMICA (Lista Desplegable) - WCAG 4.1.3
-       ===================================================================== */
-    const tzSelect = document.getElementById('timezone-select');
-    
-    // CORRECCIÓN: Se capturan absolutamente todos los tiempos que posean data-utc
-    const timeElements = document.querySelectorAll('time[data-utc]');
-    const announcer = document.getElementById('tz-announcer');
+   4. ZONA HORARIA DINÁMICA (WCAG 2.2)
+   ===================================================================== */
 
-    if (tzSelect && timeElements.length > 0) {
-        function updateTimes(selectedZone, zoneName) {
-            timeElements.forEach(timeEl => {
-                const utcDateString = timeEl.getAttribute('data-utc');
-                if (!utcDateString) return;
+const tzSelect = document.getElementById('timezone-select');
+const announcer = document.getElementById('tz-announcer');
 
-                const dateObj = new Date(utcDateString);
-                const options = { 
-                    timeZone: selectedZone,
-                    hour: '2-digit', 
-                    minute: '2-digit', 
-                    hour12: false 
-                };
+if (tzSelect) {
 
-                try {
-                    const formattedTime = new Intl.DateTimeFormat('es-AR', options).format(dateObj);
-                    timeEl.textContent = formattedTime;
-                    timeEl.setAttribute('datetime', dateObj.toISOString());
-                } catch (error) {
-                    console.error("Error al convertir la zona horaria:", error);
-                }
-            });
+    function updateTimes(timeZone, zoneLabel) {
 
-            // Anuncio para tecnologías de asistencia
-            if (announcer && zoneName) {
-                announcer.textContent = `Los horarios se han actualizado a la zona horaria de: ${zoneName}.`;
+        const timeElements = document.querySelectorAll('time[data-utc]');
+
+        timeElements.forEach(timeEl => {
+
+            const utcValue = timeEl.dataset.utc;
+
+            if (!utcValue) return;
+
+            const date = new Date(utcValue);
+
+            try {
+
+                const formatted = new Intl.DateTimeFormat(
+                    'es-ES',
+                    {
+                        timeZone,
+                        day: '2-digit',
+                        month: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    }
+                ).format(date);
+
+                timeEl.textContent = formatted;
+
+            } catch (error) {
+                console.error('Error de conversión horaria:', error);
             }
-        }
-
-        tzSelect.addEventListener('change', (e) => {
-            const selectedZone = e.target.value;
-            const zoneName = e.target.options[e.target.selectedIndex].text;
-            updateTimes(selectedZone, zoneName);
         });
 
-        // Inicialización silenciosa al renderizar el DOM
-        updateTimes(tzSelect.value, null);
+        if (announcer && zoneLabel) {
+            announcer.textContent =
+                `Los horarios se actualizaron a la zona horaria ${zoneLabel}.`;
+        }
     }
-});
+
+    tzSelect.addEventListener('change', (event) => {
+
+        const option =
+            event.target.options[event.target.selectedIndex];
+
+        updateTimes(
+            event.target.value,
+            option.textContent
+        );
+    });
+
+    updateTimes(
+        tzSelect.value,
+        tzSelect.options[tzSelect.selectedIndex].textContent
+    );
+}
+})

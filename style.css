@@ -2389,3 +2389,71 @@ body.dark-mode .vs-badge {
         padding-right: 1rem;
     }
 }
+/* Contenedor de horarios adicionales */
+.multi-time-info {
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Lista de horarios */
+.time-list {
+    margin: 0.25rem 0 0 0;
+    padding-left: 1.2rem;
+    list-style: disc;
+}
+
+.time-list li {
+    margin-bottom: 0.15rem;
+    line-height: 1.4;
+}
+
+/* Reflujo WCAG: si el espacio es pequeño, la celda se adapta */
+@media (max-width: 480px) {
+    .time-list {
+        padding-left: 1rem;
+    }
+}
+
+/* scroll lateral de tabla de grupo */
+/* Evita scroll lateral en tablas */
+.table-responsive-wrapper {
+    overflow-x: visible !important;
+}
+
+/* Permite que las celdas se partan en varias líneas */
+/* .accessible-fixture-table th,
+.accessible-fixture-table td {
+    white-space: normal !important;
+    word-break: break-word;
+    max-width: 140px; 
+} */
+
+/* Ajuste para pantallas pequeñas */
+/* @media (max-width: 480px) {
+    .accessible-fixture-table th,
+    .accessible-fixture-table td {
+        font-size: 0.85rem;
+        padding: 0.35rem;
+    }
+} */
+
+/* aumentar tabla */
+/* En escritorio, permitir que la tabla se expanda */
+
+/* Mejor distribución del texto en escritorio */
+/* @media (min-width: 1024px) {
+    .accessible-fixture-table th,
+    .accessible-fixture-table td {
+        white-space: nowrap; /* evita saltos de línea feos */
+        /* padding: 0.75rem 1rem;
+    }
+} */ 
+/* En móviles sigue siendo flexible */
+/* @media (max-width: 600px) {
+    .accessible-fixture-table th,
+    .accessible-fixture-table td {
+        white-space: normal;
+        word-break: break-word;
+    }
+} */
