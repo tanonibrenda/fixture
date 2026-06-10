@@ -2337,3 +2337,55 @@ body.dark-mode .vs-badge {
         width: fit-content;
     }
 }
+
+/* ---- COPA DEL MUNDO ----  */
+/* Layout del hero con imagen + texto */
+.hero-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+/* Bloque de texto: respeta las clases existentes */
+.hero-text-block {
+    width: 100%;
+}
+
+/* Bloque de imagen */
+.hero-image-block {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Imagen del trofeo: responsive y compatible con reflujo WCAG 2.2 */
+.hero-trophy-img {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Reordenar en pantallas más anchas sin romper reflujo */
+@media (min-width: 768px) {
+    .hero-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .hero-text-block,
+    .hero-image-block {
+        flex: 1 1 0;
+    }
+
+    .hero-text-block {
+        padding-right: 1rem;
+    }
+}
