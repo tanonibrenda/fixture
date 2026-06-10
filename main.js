@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =====================================================================
-       1. ACORDEONES (Fixtures y Grupos) - WCAG 2.1.1
+       5.1. ACORDEONES (Fixtures y Grupos) - WCAG 2.1.1
        ===================================================================== */
     const accordionTriggers = document.querySelectorAll('.accordion-trigger');
     
