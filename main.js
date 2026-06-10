@@ -1,155 +1,119 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* =====================================================================
-       5.1. ACORDEONES (Fixtures y Grupos) - WCAG 2.1.1
-       ===================================================================== */
+    /* ============================================================
+       1. ACORDEONES ACCESIBLES
+       ============================================================ */
     const accordionTriggers = document.querySelectorAll('.accordion-trigger');
-    
+
     accordionTriggers.forEach(trigger => {
         trigger.addEventListener('click', () => {
-            const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-            const panelId = trigger.getAttribute('aria-controls');
-            const panel = document.getElementById(panelId);
+            const expanded = trigger.getAttribute('aria-expanded') === 'true';
+            const panel = document.getElementById(trigger.getAttribute('aria-controls'));
 
-            // Evitar errores si el panel no existe en el DOM
-            if (panel) {
-                trigger.setAttribute('aria-expanded', !isExpanded);
-                if (!isExpanded) {
-                    panel.removeAttribute('hidden');
-                } else {
-                    panel.setAttribute('hidden', '');
-                }
-            }
+            trigger.setAttribute('aria-expanded', !expanded);
+            expanded ? panel.setAttribute('hidden', '') : panel.removeAttribute('hidden');
         });
 
-        // Operabilidad por teclado
-        trigger.addEventListener('keydown', (e) => {
-            const index = Array.from(accordionTriggers).indexOf(trigger);
-            let nextIndex = index;
+        trigger.addEventListener('keydown', e => {
+            const idx = [...accordionTriggers].indexOf(trigger);
+            let next = idx;
 
-            if (e.key === 'ArrowDown') {
-                nextIndex = (index + 1) % accordionTriggers.length;
-                e.preventDefault();
-            } else if (e.key === 'ArrowUp') {
-                nextIndex = (index - 1 + accordionTriggers.length) % accordionTriggers.length;
-                e.preventDefault();
-            } else if (e.key === 'Home') {
-                nextIndex = 0;
-                e.preventDefault();
-            } else if (e.key === 'End') {
-                nextIndex = accordionTriggers.length - 1;
-                e.preventDefault();
-            }
+            if (e.key === 'ArrowDown') next = (idx + 1) % accordionTriggers.length;
+            if (e.key === 'ArrowUp') next = (idx - 1 + accordionTriggers.length) % accordionTriggers.length;
+            if (e.key === 'Home') next = 0;
+            if (e.key === 'End') next = accordionTriggers.length - 1;
 
-            if (nextIndex !== index) {
-                accordionTriggers[nextIndex].focus();
+            if (next !== idx) {
+                e.preventDefault();
+                accordionTriggers[next].focus();
             }
         });
     });
 
-    /* =====================================================================
-       2. MENÚ DE NAVEGACIÓN MÓVIL (Menú Desplegable)
-       ===================================================================== */
+    /* ============================================================
+       2. MENÚ MÓVIL
+       ============================================================ */
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mainMenu = document.getElementById('main-menu');
 
     if (mobileMenuToggle && mainMenu) {
         mobileMenuToggle.addEventListener('click', () => {
-            const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-            mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+            const expanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+            mobileMenuToggle.setAttribute('aria-expanded', !expanded);
             mainMenu.classList.toggle('open');
         });
     }
 
-    /* =====================================================================
-       3. PANEL DE HERRAMIENTAS DE ACCESIBILIDAD
-       ===================================================================== */
+    /* ============================================================
+       3. PANEL DE ACCESIBILIDAD
+       ============================================================ */
     const accMenuToggle = document.getElementById('acc-menu-toggle');
     const accPanel = document.getElementById('acc-panel');
     const accCloseBtn = document.getElementById('accCloseBtn');
 
     if (accMenuToggle && accPanel) {
         function toggleAccPanel() {
-            const isExpanded = accMenuToggle.getAttribute('aria-expanded') === 'true';
-            accMenuToggle.setAttribute('aria-expanded', !isExpanded);
-            
-            if (!isExpanded) {
+            const expanded = accMenuToggle.getAttribute('aria-expanded') === 'true';
+            accMenuToggle.setAttribute('aria-expanded', !expanded);
+
+            if (!expanded) {
                 accPanel.removeAttribute('hidden');
-                // Derivar el foco al botón de cerrar para asegurar el flujo del lector
-                if(accCloseBtn) accCloseBtn.focus(); 
+                accCloseBtn?.focus();
             } else {
                 accPanel.setAttribute('hidden', '');
-                // Devolver el foco al disparador principal
-                accMenuToggle.focus(); 
+                accMenuToggle.focus();
             }
         }
 
         accMenuToggle.addEventListener('click', toggleAccPanel);
-        if(accCloseBtn) accCloseBtn.addEventListener('click', toggleAccPanel);
+        accCloseBtn?.addEventListener('click', toggleAccPanel);
     }
 
-    /* =====================================================================
-   4. ZONA HORARIA DINÁMICA (WCAG 2.2)
-   ===================================================================== */
+    /* ============================================================
+       4. ZONA HORARIA — CORREGIDO
+       ============================================================ */
 
-const tzSelect = document.getElementById('timezone-select');
-const announcer = document.getElementById('tz-announcer');
+    const tzSelect = document.querySelector('select#timezone-select'); // ahora solo 1
+    const announcer = document.getElementById('tz-announcer');
 
-if (tzSelect) {
+    if (tzSelect) {
 
-    function updateTimes(timeZone, zoneLabel) {
+        function updateTimes(timeZone, label) {
+            const timeElements = document.querySelectorAll('time[data-utc]');
 
-        const timeElements = document.querySelectorAll('time[data-utc]');
+            timeElements.forEach(timeEl => {
+                const utc = timeEl.dataset.utc;
+                if (!utc) return;
 
-        timeElements.forEach(timeEl => {
+                const date = new Date(utc);
 
-            const utcValue = timeEl.dataset.utc;
-
-            if (!utcValue) return;
-
-            const date = new Date(utcValue);
-
-            try {
-
-                const formatted = new Intl.DateTimeFormat(
-                    'es-ES',
-                    {
+                try {
+                    const formatted = new Intl.DateTimeFormat('es-ES', {
                         timeZone,
-                        day: '2-digit',
-                        month: '2-digit',
                         hour: '2-digit',
                         minute: '2-digit',
                         hour12: false
-                    }
-                ).format(date);
+                    }).format(date);
 
-                timeEl.textContent = formatted;
+                    timeEl.textContent = formatted;
 
-            } catch (error) {
-                console.error('Error de conversión horaria:', error);
+                } catch (err) {
+                    console.error("Error al convertir horario:", err);
+                }
+            });
+
+            if (announcer) {
+                announcer.textContent = `Los horarios se actualizaron a la zona horaria ${label}.`;
             }
+        }
+
+        tzSelect.addEventListener('change', e => {
+            const option = e.target.options[e.target.selectedIndex];
+            updateTimes(e.target.value, option.textContent.trim());
         });
 
-        if (announcer && zoneLabel) {
-            announcer.textContent =
-                `Los horarios se actualizaron a la zona horaria ${zoneLabel}.`;
-        }
+        // Inicialización
+        const initialOption = tzSelect.options[tzSelect.selectedIndex];
+        updateTimes(tzSelect.value, initialOption.textContent.trim());
     }
-
-    tzSelect.addEventListener('change', (event) => {
-
-        const option =
-            event.target.options[event.target.selectedIndex];
-
-        updateTimes(
-            event.target.value,
-            option.textContent
-        );
-    });
-
-    updateTimes(
-        tzSelect.value,
-        tzSelect.options[tzSelect.selectedIndex].textContent
-    );
-}
-})
+});
